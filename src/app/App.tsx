@@ -1,21 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import {
-  LayoutDashboard, Users, GraduationCap, BookOpen, CalendarCheck,
-  FileText, DollarSign, Bell, Settings, Library, Bus, Home,
-  ChevronDown, ChevronRight, Menu, X, Sun, Moon, Search,
-  TrendingUp, TrendingDown, UserCheck, UserX, BookMarked,
-  Award, CheckCircle, Clock, Plus, Filter, Download, Eye,
-  Edit, Trash2, Building2, Globe, Shield, LogOut, User,
-  BarChart3, Activity, Wallet, CreditCard, Receipt, School,
-  ClipboardList, MessageSquare, Calendar, Package, Star,
-  ChevronLeft, AlertCircle, Layers, Hash, MapPin, Phone,
-  Mail, Lock, ArrowRight, RefreshCw, Printer, Send,
-  BookOpenCheck, Clipboard, MoreHorizontal, Check, Minus,
-  PieChart as PieChartIcon, ArrowUpRight, ArrowDownRight,
-  UserPlus, FilePlus, Banknote, ShieldCheck, Megaphone,
-  HelpCircle, Info, ChevronUp, Boxes, ClipboardCheck,
-  Baby, Stethoscope, Bus as BusIcon, WifiOff, Wifi
-} from "lucide-react";
+import { LayoutDashboard, Users, GraduationCap, BookOpen, CalendarCheck, FileText, DollarSign, Bell, Settings, Library, Bus, Chrome as Home, ChevronDown, ChevronRight, Menu, X, Sun, Moon, Search, TrendingUp, TrendingDown, UserCheck, UserX, BookMarked, Award, CircleCheck as CheckCircle, Clock, Plus, ListFilter as Filter, Download, Eye, CreditCard as Edit, Trash2, Building2, Globe, Shield, LogOut, User, ChartBar as BarChart3, Activity, Wallet, CreditCard, Receipt, School, ClipboardList, MessageSquare, Calendar, Package, Star, ChevronLeft, CircleAlert as AlertCircle, Layers, Hash, MapPin, Phone, Mail, Lock, ArrowRight, RefreshCw, Printer, Send, BookOpenCheck, Clipboard, MoveHorizontal as MoreHorizontal, Check, Minus, ChartPie as PieChartIcon, ArrowUpRight, ArrowDownRight, UserPlus, FilePlus, Banknote, ShieldCheck, Megaphone, CircleHelp as HelpCircle, Info, ChevronUp, Boxes, ClipboardCheck, Baby, Stethoscope, Bus as BusIcon, WifiOff, Wifi } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
