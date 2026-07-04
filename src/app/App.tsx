@@ -508,8 +508,41 @@ const SUPER_ADMIN_EXTRA = { id: "schools_list", icon: Building2, label: "schools
 
 function DashboardView({ t, role }: { t: (k: string) => string; role: Role }) {
   const isSuperAdmin = role === "super_admin";
+  const [firestoreMode, setFirestoreMode] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const toggleFirestore = async () => {
+    setLoading(true);
+    try {
+      if (!firestoreMode) {
+        const { seedDatabase } = await import("../lib/seedData");
+        await seedDatabase();
+      }
+      setFirestoreMode(!firestoreMode);
+    } catch (err) {
+      console.error("Firestore toggle error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
+      {/* Firestore Toggle */}
+      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+        <div className="flex items-center gap-2">
+          <div className={`w-2 h-2 rounded-full ${firestoreMode ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+          <span className="text-sm font-medium">Data Source: {firestoreMode ? 'Firestore (Live)' : 'Local (Demo)'}</span>
+        </div>
+        <button
+          onClick={toggleFirestore}
+          disabled={loading}
+          className="px-3 py-1.5 text-xs font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors"
+        >
+          {loading ? 'Switching...' : firestoreMode ? 'Use Demo Data' : 'Connect Firestore'}
+        </button>
+      </div>
+
       {/* Stat Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard icon={GraduationCap} label={isSuperAdmin ? "Total Students" : t("totalStudents")} value={isSuperAdmin ? "3,510" : "1,230"} sub="vs last month" trend={{ val: 3.2, positive: true }} color="bg-teal-500" />
@@ -2012,6 +2045,8 @@ export default function App() {
   const [lang, setLang] = useState<Lang>("en");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [firestoreEnabled, setFirestoreEnabled] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const t = useCallback((key: string): string => i18n[lang][key] || key, [lang]);
 
@@ -2029,6 +2064,23 @@ export default function App() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     setView("dashboard");
+  };
+
+  const toggleFirestore = async () => {
+    if (!firestoreEnabled) {
+      setDataLoading(true);
+      try {
+        const { seedDatabase } = await import("../lib/seedData");
+        await seedDatabase();
+        setFirestoreEnabled(true);
+      } catch (error) {
+        console.error("Failed to enable Firestore:", error);
+      } finally {
+        setDataLoading(false);
+      }
+    } else {
+      setFirestoreEnabled(false);
+    }
   };
 
   if (!isAuthenticated) {
